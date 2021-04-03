@@ -1,5 +1,4 @@
 ### lexer/lexer.mjs
-+ 03/04/2021 16:51  
-- Adding $ and $[0-9]* bash like arguments  
-
-
++ 03/04/2021 
+16:51 Adding $ and $[0-9]* bash like arguments  
+17:05 Adding [ and ] 

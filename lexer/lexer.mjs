@@ -68,6 +68,18 @@ const lexer = code => {
     }
     /* R_BRACE ***/
 
+    /*** L_BRACKET */
+    else if ("[" === code[i]) {
+      tokens.push({pos: i, type: "lbracket", value: code[i]});
+    }
+    /* L_BRACKET ***/
+
+    /*** R_BRACKET */
+    else if ("]" === code[i]) {
+      tokens.push({pos: i, type: "rbracket", value: code[i]});
+    }
+    /* R_BRACKET ***/
+
     /*** VALUE */
     else if (/[0-9]/.test(code[i])) {
       auxPos = i;
