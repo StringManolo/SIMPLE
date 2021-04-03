@@ -1,5 +1,5 @@
 
-const lexer = code => {
+const lexer = (code, tokenizeSpaces = false) => {
   let tokens = [];
   let aux = "";
   let auxPos = 0;
@@ -11,7 +11,7 @@ const lexer = code => {
 
   for (let i = 0; i < code.length; ++i) {
 
-    /*** STRING */
+    /*** DOUBLE QUOTED STRING */
     if (/\"/.test(code[i])) {
       auxPos = i++;
       /* Iterate to get the full string */
@@ -28,7 +28,26 @@ const lexer = code => {
       aux = "";
       auxPos = 0;
     }
-    /* STRING ***/
+    /* DOUBLE QUOTED STRING ***/
+
+    /*** SINGLE QUOTED STRING */
+    if (/\'/.test(code[i])) {
+      auxPos = i++;
+      /* Iterate to get the full string */
+      for (; i < code.length; ++i) {
+        if (/\'/.test(code[i])) {
+          if (code[i - 1] !== "\\") {
+            break;
+          }
+        }
+        aux += code[i];
+      }
+
+      tokens.push({pos: auxPos, type: "string", value: aux});
+      aux = "";
+      auxPos = 0;
+    }
+    /* SINGLE QUOTED STRING ***/
 
     /*** VALID ID */
     /* if valid as first id char */
@@ -157,8 +176,53 @@ const lexer = code => {
       --i;
     }
     /* BASH LIKE ARGS ***/
+    
+    /*** BACKTICK */
+    else if ("`" === code[i]) {
+      tokens.push({pos: i, type: "backtick", value: code[i]});
+    }
+    /* BACKTICK ***/
 
+    /*** HASH */
+    else if ("#" === code[i]) {
+      tokens.push({pos: i, type: "hash", value: code[i]});
+    }
+    /* HASH ***/
+ 
+    /*** AMPERSAND */
+    else if ("&" === code[i]) {
+      if ("&" === code[+i + 1]) {
+        tokens.push({pos: i++, type: "doubleampersand", value: "&&"});
+      } else {
+        tokens.push({pos: i, type: "ampersand", value: code[i]});
+      }
+    }
+    /* AMPERSAND ***/
 
+    /*** PIPE */
+    else if ("|" === code[i]) {
+      if ("|" === code[+i + 1]) {
+        tokens.push({pos: i++, type: "doublepipe", value: "||"});
+      } else {
+        tokens.push({pos: i, type: "pipe", value: code[i]});
+      }
+    }
+    /* PIPE ***/
+
+    /*** SPACES */
+    else if (" " === code[i]) {
+      if (tokenizeSpaces) {
+        tokens.push({pos: i, type: "space", value: code[i]});
+      }
+    }
+    /* SPACES ***/
+
+    /*** ANYTHING ELSE */
+    else {
+      /* This may be sintax errors */
+      tokens.push({pos: i, type: "unknown", value: code[i]});
+    }
+    /* ANYTHING ELSE */
   }
 
   return tokens;
