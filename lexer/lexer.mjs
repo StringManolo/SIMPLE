@@ -13,9 +13,8 @@ const lexer = code => {
 
     /*** STRING */
     if (/\"/.test(code[i])) {
-      auxPos = i;
+      auxPos = i++;
       /* Iterate to get the full string */
-      ++i;
       for (; i < code.length; ++i) {
         if (/\"/.test(code[i])) {
           if (code[i - 1] !== "\\") {
@@ -132,6 +131,20 @@ const lexer = code => {
       }
     }
     /* EQUALS_TO AND ASSIGN ***/
+
+    /*** BASH LIKE ARGS */ 
+    else if ("$" === code[i]) {
+      auxPos = i++;
+      /* Iterate to get the full arg */
+      for(; /[0-9]/.test(code[i]) && i < code.length; ++i) {
+        aux += code[i];
+      }
+      tokens.push({pos: auxPos, type: "argument", value: aux || "all"});
+      aux = "";
+      auxPos = 0;
+      --i;
+    }
+    /* BASH LIKE ARGS ***/
 
 
   }
