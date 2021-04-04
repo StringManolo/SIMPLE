@@ -163,6 +163,26 @@ const lexer = (code, tokenizeSpaces = false) => {
     }
     /* EQUALS_TO AND ASSIGN ***/
 
+    /*** LESS_THAN LESS_THAN_OR_EQUALS_TO */
+    else if ("<" === code[i]) {
+      if (code[+i + 1] === "=") {
+        tokens.push({pos: i++, type: "lessthanorequalsto", value: "<="});
+      } else {
+        tokens.push({pos: i, type: "lessthan", value: code[i]});
+      }
+    } 
+    /* LESS_THAN LESS_THAN_OR_EQUALS_TO ***/
+
+    /*** GREATER_THAN GREATER_THAN_OR_EQUALS_TO */
+    else if (">" === code[i]) {
+      if (code[+i + 1] === "=") {
+        tokens.push({pos: i++, type: "greaterthanorequalsto", value: ">="});
+      } else {
+        tokens.push({pos: i, type: "greaterthan", code[i]});
+      }
+    }
+    /* GREATER_THAN GREATER_THAN_OR_EQUALS_TO */
+
     /*** BASH LIKE ARGS */ 
     else if ("$" === code[i]) {
       auxPos = i++;
@@ -208,6 +228,7 @@ const lexer = (code, tokenizeSpaces = false) => {
       }
     }
     /* PIPE ***/
+
 
     /*** SPACES */
     else if (" " === code[i]) {
