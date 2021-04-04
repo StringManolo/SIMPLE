@@ -178,7 +178,7 @@ const lexer = (code, tokenizeSpaces = false) => {
       if (code[+i + 1] === "=") {
         tokens.push({pos: i++, type: "greaterthanorequalsto", value: ">="});
       } else {
-        tokens.push({pos: i, type: "greaterthan", code[i]});
+        tokens.push({pos: i, type: "greaterthan", value: code[i]});
       }
     }
     /* GREATER_THAN GREATER_THAN_OR_EQUALS_TO */
