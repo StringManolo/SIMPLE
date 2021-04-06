@@ -27,6 +27,7 @@ const lexer = (code, tokenizeSpaces = false) => {
       tokens.push({pos: auxPos, type: "string", value: aux});
       aux = "";
       auxPos = 0;
+      ++i;
     }
     /* DOUBLE QUOTED STRING ***/
 
@@ -46,6 +47,7 @@ const lexer = (code, tokenizeSpaces = false) => {
       tokens.push({pos: auxPos, type: "string", value: aux});
       aux = "";
       auxPos = 0;
+      ++i;
     }
     /* SINGLE QUOTED STRING ***/
 
@@ -59,7 +61,7 @@ const lexer = (code, tokenizeSpaces = false) => {
       }
       tokens.push({pos: auxPos, type: "id", value: aux});
       aux = "";
-      auxPos = 0;
+      auxPos = 0;;
     }
     /* VALID ID ***/
     
