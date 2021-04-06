@@ -229,6 +229,11 @@ const lexer = (code, tokenizeSpaces = false) => {
     }
     /* PIPE ***/
 
+    /*** SCAPES */
+    else if("\\" === code[i]) {
+      tokens.push({pos: i, type: "scape", value: code[i]});
+    }
+    /* SCAPES ***/
 
     /*** SPACES */
     else if (" " === code[i]) {
