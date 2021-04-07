@@ -15,3 +15,4 @@
 ### parser/parser.mjs
 + 07/04/2021  
 09:15 Started parser. starting to set expression names.
+10:15 Parser is ready to use as import module.

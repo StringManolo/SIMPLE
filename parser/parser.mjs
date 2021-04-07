@@ -1,26 +1,12 @@
-
-
-import lexer from "./../lexer/lexer.mjs";
-const code = `x = "Hello World";
-showHelloWorld() {
-  out($1);
-  return 6 * 7;
-}
-
-showHelloWorld(x);
-
-`;
-const lexemas = lexer(code);
- 
+import lexer from "./../lexer/lexer.mjs"
 
 const parser = lexemas => {
-
   const getExpressions = lex => {
     let expressions = [];
     let actualExpression = [];
     for(let i in lex) {
       if (lex[i].type === "linebreak") {
-
+        // ignore line breaks
       } else {
         actualExpression.push(lex[i]);
         if (lex[i].type === "lbrace" || lex[i].type === "rbrace" || lex[i].type === "semicolon") {
@@ -32,8 +18,6 @@ const parser = lexemas => {
     return expressions;
   }
 
-  console.log(`CODE TO PARSE:\n${code}\n\n\nTOKENS:`);
-
   const nameExpressions = expressions => {
     let namedExpr = [];
     for(let i in expressions) {
@@ -44,7 +28,6 @@ const parser = lexemas => {
         actual.push(expressions[i][j].type);
         aux.push(expressions[i][j].value);
       }
-      console.log(actual + "\n")
 
       if (actual[0] === "id" && actual[1] === "assign" 
       && actual[actual.length - 1] === "semicolon" ) {
@@ -60,19 +43,12 @@ const parser = lexemas => {
       } else if (actual[0] === "id" && aux[0] === "return") {
         namedExpr.push({"returnexpression": expressions[i]});
       }
-
       actual = [];
     }
-    console.log("\n\n\nEXPRESSIONS:");
-    console.log(JSON.stringify(namedExpr, null, 2));
+    return namedExpr;
   }
 
-  nameExpressions(getExpressions(lexemas));
-  
-
+  return nameExpressions(getExpressions(lexemas));
 }
 
-
-parser(lexemas);
-
-//export default parser;
+export default parser;
