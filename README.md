@@ -10,14 +10,14 @@ The main idea is to write the code in SIMPLE programming language and use the so
 
 ### SIMPLE FRAMEWORK:  
 SIMPLE framework is a set of javascript cli tools that make possible to use the language:
-+ lexer/lexer.mjs  
++ [lexer/lexer.mjs](https://github.com/StringManolo/SIMPLE/blob/main/lexer/lexer.mjs)  
 ES6 module exporting a function to convert raw code into tokens and language structures.  
 lexer.mjs is designed to a more general purpouse like sintax highlighting.  
 
-+ parser/parser.mjs  
++ [parser/parser.mjs](https://github.com/StringManolo/SIMPLE/blob/main/parser/parser.mjs)  
 ES6 module exporting a function to organice the lexemas into expressions.  
 
-+ transpiler/cpp/simple2cpp.js  
++ [transpiler/cpp/simple2cpp.js](https://github.com/StringManolo/SIMPLE/blob/main/transpiler/cpp/simple2cpp.js)  
 ES6 module exporting a function to generate c++ code from SIMPLE expressions.  
 
 ### SIMPLE LANGUAGE:  
