@@ -12,5 +12,6 @@
 03:02 Adding \ scapes  
 03:07 Fixing strings iteration ended to early  
 
-
-
+### parser/parser.mjs
++ 07/04/2021  
+09:15 Started parser. starting to set expression names.

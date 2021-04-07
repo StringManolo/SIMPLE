@@ -192,7 +192,7 @@ const lexer = (code, tokenizeSpaces = false) => {
       for(; /[0-9]/.test(code[i]) && i < code.length; ++i) {
         aux += code[i];
       }
-      tokens.push({pos: auxPos, type: "argument", value: aux || "all"});
+      tokens.push({pos: auxPos, type: "argument", value: "$"+aux || "$all"});
       aux = "";
       auxPos = 0;
       --i;
