@@ -14,6 +14,11 @@ SIMPLE framework is a set of javascript cli tools that make possible to use the 
 ES6 module exporting a function to convert raw code into tokens and language structures.  
 lexer.mjs is designed to a more general purpouse like sintax highlighting.  
 
++ parser/parser.mjs  
+ES6 module exporting a function to organice the lexemas into expressions.  
+
++ transpiler/cpp/simple2cpp.js  
+ES6 module exporting a function to generate c++ code from SIMPLE expressions.  
 
 ### SIMPLE LANGUAGE:  
 SIMPLE is a functional programming language where everything is a function or a function call.  
