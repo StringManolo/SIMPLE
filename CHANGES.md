@@ -14,5 +14,13 @@
 
 ### parser/parser.mjs
 + 07/04/2021  
-09:15 Started parser. starting to set expression names.
-10:15 Parser is ready to use as import module.
+09:15 Started parser. starting to set expression names  
+10:15 Parser is ready to use as import module  
+
+### simplec.js
++ 07/04/2021  
+10:18 Changed simplec to use parser module  
+
+
+
+
