@@ -1,5 +1,3 @@
-import lexer from "./../lexer/lexer.mjs"
-
 const parser = lexemas => {
   const getExpressions = lex => {
     let expressions = [];

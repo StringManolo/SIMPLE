@@ -1,4 +1,4 @@
-### lexer/lexer.mjs
+### [lexer/lexer.mjs](https://github.com/StringManolo/SIMPLE/blob/main/lexer/lexer.mjs)  
 #### 03/04/2021  
    
 16:51 Adding $ and $[0-9]* bash like arguments  
@@ -20,19 +20,19 @@
    
 03:07 Fixing strings iteration ended to early  
 
-### parser/parser.mjs  
+### [parser/parser.mjs](https://github.com/StringManolo/SIMPLE/blob/main/parser/parser.mjs)   
 #### 07/04/2021  
   
 09:15 Started parser. starting to set expression names  
   
 10:15 Parser is ready to use as import module  
 
-### simplec.js  
+### [simplec.js](https://github.com/StringManolo/SIMPLE/blob/main/simplec.js)  
 #### 07/04/2021  
   
 10:18 Changed simplec to use parser module  
 
-### transpiler/cpp/simple2cpp.js  
+###  [transpiler/cpp/simple2cpp.js](https://github.com/StringManolo/SIMPLE/blob/main/transpiler/cpp/simple2cpp.js)  
 #### 07/04/2021  
   
 19:02 Started simple2cpp, starting to generate cpp code from expressions  

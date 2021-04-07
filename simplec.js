@@ -1,7 +1,11 @@
 import lexer from "./lexer/lexer.mjs";
 import parser from "./parser/parser.mjs";
 
-const code = 'x = "hola mundo";';
+const code = `x = "Hello World";
+showHelloWorld() {
+  out($1);
+  return 6 * 7;
+}`;
 const lexemas = lexer(code);
 
 const expressions = parser(lexemas); 
