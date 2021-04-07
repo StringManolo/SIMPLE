@@ -21,6 +21,8 @@
 + 07/04/2021  
 10:18 Changed simplec to use parser module  
 
-
+### transpiler/cpp/simple2cpp.js  
++ 07/04/2021  
+19;02 Started simple2cpp, starting to generate cpp code from expressions  
 
 
