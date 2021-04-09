@@ -37,4 +37,8 @@
   
 19:02 Started simple2cpp, starting to generate cpp code from expressions  
 
+#### 09/04/2021
+
+10:14 Can generate all code of currently implemented parser. but type of function arguments.  
+
 

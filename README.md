@@ -21,7 +21,7 @@ ES6 module exporting a function to organice the lexemas into expressions.
 ES6 module exporting a function to generate c++ code from SIMPLE expressions.  
 
 ### SIMPLE LANGUAGE:  
-SIMPLE is a functional programming language where everything is a function or a function call.  
+SIMPLE is a functional programming language where everything is going to be a function or a function call.  
 
 
 

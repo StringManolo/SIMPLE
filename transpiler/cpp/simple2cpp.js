@@ -20,9 +20,10 @@ const expressions = parser(lexemas);
 const simple2cpp = expressions => {
   let includes = [],
   globals = "",
-  cpp = "using namespace std;\n\nint main() {\n",
+  cpp = "\nint main() {\n",
   functionDefinition = "",
-  ids = [];
+  ids = [],
+  functions = [];
 
   const listToInclude = include => {
     let aux = "";
@@ -71,28 +72,111 @@ const simple2cpp = expressions => {
     }
     cpp += actualExpr + "\n";
   }
- 
+
+  let functionCtx = false;
   const transpileFunctionDefinition = expression => {
-     
+    let actualExpr = "";
+
+    for (let i in expression) {
+      if (expression[i].type === "id") {
+        if (addId(expression[i].value)) {
+          expression[i].value = `auto ${expression[i].value}`;
+        }
+        functions.push({ id: expression[i].value });
+        actualExpr = "";
+        functionCtx = true;
+      }
+    } 
+    /* ASK FOR EXPRESSIONS UNTIL END OF FUNCTION FOUND */
+    
   }
 
 
-  for (let i in expressions) {
+  const transpileFunctionCall = expression => {
+    let actualExpr = "";
+    for (let i in expression) {
+      actualExpr += expression[i].value + " ";
+    }
+
+    if (functionCtx) {
+
+      for (let i in expression) {
+        if (expression[i].type === "argument") {
+          if (functions[functions.length - 1].args) {
+            functions[functions.length - 1].args.push(expression[i].value);
+          } else {
+            functions[functions.length - 1].args = [ expression[i].value ];
+          }
+        } 
+      }
+
+      if (functions[functions.length - 1].expr) {
+        functions[functions.length - 1].expr.push(actualExpr);
+      } else {
+        functions[functions.length - 1].expr = [ actualExpr ];
+      }
+    } else {
+      cpp += actualExpr + "\n";
+    }
+  }
+
+  const transpileReturnExpression = expression => {
+    let actualExpr = "";
+    for (let i in expression) {
+      actualExpr += expression[i].value + " ";
+    }
+    functions[functions.length -1].returned = actualExpr;
+  }
+
+  const transpileFunctionDefinitionEnd = expression => {
+    functionCtx = false;
+    //console.log(JSON.stringify(functions, null, 2));
+  }
+
+  for (let i = 0; i < expressions.length; ++i) {
     const expr = Object.entries(expressions[i]);
     switch (expr[0][0]) {
       case "asignment":
         transpileAsignment(expr[0].splice(1)[0]);
       break;
 
-      case "functiondefinition":
-        transpileFunctionDefinition(expr[0].splice(1)[0]);
+      case "functiondefinition": 
+        transpileFunctionDefinition(expr[0].splice(1)[0]); 
       break;
+
+      case "functioncall":
+        transpileFunctionCall(expr[0].splice(1)[0]);
+      break;
+ 
+      case "funciondefinitionend":
+        transpileFunctionDefinitionEnd(expr[0].splice(1)[0]);
+      break;
+
+      case "returnexpression":
+        transpileReturnExpression(expr[0].splice(1)[0]);
+      break; 
     } 
   }
+
+  for (let i in functions) {
+    /* prototype */
+    globals += `${functions[i].id}(${functions[i].args || ""});\n`;
+   
+    /* define */
+    functionDefinition += `${functions[i].id}(${functions[i].args || ""}) {\n`;
+    for (let j in functions[i].expr) {
+      functionDefinition += functions[i].expr[j] + "\n";
+    }
+    functionDefinition += `${functions[i].returned}\n}\n`;
+  }
+  
+
+/* define function keywords like out, if, for... */
 
   cpp += "\nreturn 0;\n}\n";
 
   return `${listToInclude(includes)}
+using namespace std;\n
 ${globals}
 ${cpp}
 ${functionDefinition}`; 
