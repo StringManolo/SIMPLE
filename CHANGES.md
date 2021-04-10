@@ -41,4 +41,9 @@
 
 10:14 Can generate all code of currently implemented parser. but type of function arguments.  
 
+#### 10/04/2021  
+
+15:35 Included out keyword function definition (out/console.log)  
+  
+15:35 Using any to define args and function return type. Can compile the code example.  
 
