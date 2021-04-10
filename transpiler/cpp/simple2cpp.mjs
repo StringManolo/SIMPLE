@@ -232,6 +232,11 @@ Console console;`;
         }
       }
 
+      if (expression[i].type === "string") {
+        expression[i].value = `"${expression[i].value}"`;
+        addInclude("string");
+      }
+
       actualExpr += expression[i].value + " ";
     }
 
