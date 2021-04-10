@@ -1,0 +1,12 @@
+x = "Hello World";
+
+showHelloWorld() {
+  out($1);
+  return 6 * 7;
+}
+
+showHelloWorld(x);
+x = 8;
+
+out(8);
+out(x);

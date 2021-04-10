@@ -1,22 +1,3 @@
-import lexer from "../../lexer/lexer.mjs";
-import parser from "../../parser/parser.mjs";
-
-const code = `x = "Hello World";
-showHelloWorld() {
-  out($1);
-  return 6 * 7;
-}
-
-showHelloWorld(x);
-
-x = 8;
-
-`;
-
-const lexemas = lexer(code);
-const expressions = parser(lexemas); 
-
-
 const simple2cpp = expressions => {
   const out = `struct Console {
 
@@ -152,6 +133,8 @@ static void do_log(const std::any& arg) {
 };
 
 Console console;`;
+  let isOutIncluded = false;
+
 
   let includes = [],
   globals = "",
@@ -237,7 +220,10 @@ Console console;`;
         switch (expression[i].value) {
           case "out":
             expression[i].value = "console.log";
-            globals += `\n${out}\n\n`;
+            if (!isOutIncluded) {
+              globals += `\n${out}\n\n`;
+              isOutIncluded = true;
+            }
             addInclude("iostream");
             addInclude("vector");
             addInclude("string");
@@ -333,17 +319,5 @@ ${cpp}
 ${functionDefinition}`; 
 }
 
-const cpp = simple2cpp(expressions);
-console.log(`
-INPUT:
-${code}
-
-
-OUTPUT:
-${cpp}
-`);
-
-
-//console.log(JSON.stringify(expressions, null, 2));
-
+export default simple2cpp;
 
