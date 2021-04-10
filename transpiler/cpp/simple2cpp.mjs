@@ -135,7 +135,6 @@ static void do_log(const std::any& arg) {
 Console console;`;
   let isOutIncluded = false;
 
-
   let includes = [],
   globals = "",
   cpp = "\nint main() {\n",
@@ -265,7 +264,7 @@ Console console;`;
   const transpileReturnExpression = expression => {
     let actualExpr = "";
     for (let i in expression) {
-      actualExpr += expression[i].value + " ";
+      actualExpr += expression[i].value  + " ";
     }
     functions[functions.length -1].returned = actualExpr;
   }
@@ -309,7 +308,12 @@ Console console;`;
     for (let j in functions[i].expr) {
       functionDefinition += functions[i].expr[j] + "\n";
     }
-    functionDefinition += `${functions[i].returned}\n}\n`;
+
+    if (functions[i].returned) {
+      functionDefinition += `${functions[i].returned}\n}\n`;
+    } else {
+      functionDefinition += "}";
+    }
   }
   
 
